@@ -1,0 +1,27 @@
+{
+  "name": "gcal-to-slack-status",
+  "version": "1.0.0",
+  "description": "Updates my status in Slack based on my Google Calendar",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkeefe/gcal-to-slack-status.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkeefe/gcal-to-slack-status/issues"
+  },
+  "homepage": "https://github.com/jkeefe/gcal-to-slack-status#readme",
+  "devDependencies": {
+    "claudia": "^5.1.2"
+  },
+  "dependencies": {
+    "ical": "^0.5.0",
+    "slack": "^11.0.1"
+  }
+}
