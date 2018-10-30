@@ -1,0 +1,54 @@
+{
+    "type": "VEVENT",
+    "params": [],
+    "start": "2017-02-06T16:00:00.000Z",
+    "end": "2017-02-06T17:00:00.000Z",
+    "dtstamp": "20181030T124144Z",
+    "organizer": {
+        "params": {
+            "CN": "xx@qz.com"
+        },
+        "val": "mailto:xx@qz.com"
+    },
+    "uid": "xxxxx@google.com",
+    "attendee": [
+        {
+            "params": {
+                "CUTYPE": "RESOURCE",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "ACCEPTED",
+                "CN": "QZNYC San Francisco",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:atlanticmedia.com_xxxxx@resource.calendar.google.com"
+        },
+        {
+            "params": {
+                "CUTYPE": "INDIVIDUAL",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "ACCEPTED",
+                "CN": "Zach Seward",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:xx@qz.com"
+        },
+        {
+            "params": {
+                "CUTYPE": "INDIVIDUAL",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "NEEDS-ACTION",
+                "CN": "jk@qz.com",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:xx@qz.com"
+        }
+    ],
+    "created": "20170201T173750Z",
+    "description": "",
+    "last-modified": "20170201T174348Z",
+    "location": "QZNYC San Francisco",
+    "sequence": "0",
+    "status": "CONFIRMED",
+    "summary": "John <> Zach",
+    "transparency": "OPAQUE"
+}

@@ -37,9 +37,25 @@ Here's the rough plan:
     npm install claudia --save-dev
     npm install ical slack --save
     ```
+    
+- Loaded the things I need:
+
+    ```
+    npm install ical slack --save
+    ```
+- Added `test.js` from my [basic lambda setup](https://github.com/jkeefe/basic-lambda-setup)
+    
+    
+    
+    
+    
+    
+    
+    
+    
 TODO
 
-- Switched my local AWS credentials to my ReallyGoodSmarts account
+- Switch my local AWS credentials to my ReallyGoodSmarts account
 - Create function using:
     ```
     ./node_modules/.bin/claudia create --region us-east-1 --handler index.handler --role lambda_basic_execution
