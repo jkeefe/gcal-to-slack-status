@@ -1,0 +1,32 @@
+{
+    "type": "VEVENT",
+    "params": [],
+    "start": "2018-10-30T20:00:00.000Z",
+    "end": "2018-10-31T00:00:00.000Z",
+    "dtstamp": "20181030T214109Z",
+    "organizer": {
+        "params": {
+            "CN": "ljackson@qz.com"
+        },
+        "val": "mailto:ljackson@qz.com"
+    },
+    "uid": "48b3nkggbpauguqqt156dska9k@google.com",
+    "attendee": {
+        "params": {
+            "CUTYPE": "INDIVIDUAL",
+            "ROLE": "REQ-PARTICIPANT",
+            "PARTSTAT": "DECLINED",
+            "CN": "jk@qz.com",
+            "X-NUM-GUESTS": 0
+        },
+        "val": "mailto:jk@qz.com"
+    },
+    "created": "20181019T202749Z",
+    "description": "Save the date!  Formal invitation to come. ",
+    "last-modified": "20181030T023638Z",
+    "location": "QZNYC Town Hall",
+    "sequence": "0",
+    "status": "CONFIRMED",
+    "summary": "Halloween Party!!! ",
+    "transparency": "OPAQUE"
+}

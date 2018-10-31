@@ -1,0 +1,8 @@
+{
+  "lambda": {
+    "role": "lambda-executor",
+    "name": "gcal-to-slack-status",
+    "region": "us-east-1",
+    "sharedRole": true
+  }
+}

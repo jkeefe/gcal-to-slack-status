@@ -46,20 +46,57 @@ Here's the rough plan:
 - Added `test.js` from my [basic lambda setup](https://github.com/jkeefe/basic-lambda-setup)
     
     
+### Slack App Building
+
+- Went to the Slack App page and made a new app https://api.slack.com/slack-apps
+- Gave permissions to set do not disturb
+- Gave permissions to set user profile, which is how the status is set
+- Getting the oauth token from there
+
+
+### Slack Status update
+
+This is done in the app method `user.profile.set`. Details [here](https://api.slack.com/methods/users.profile.set). 
     
     
     
+### Slack Emoji translation
+
+Found this resource: https://github.com/iamcal/emoji-data
+
+The `emoji.json` file is what we want. The "short_name" is what slack uses between the colons to name each emoji.
+
+Also using the [emoji-regex](https://github.com/mathiasbynens/emoji-regex) npm module to pull out emoji from strings.
+
+Together, I can build a translator to turn 💻  into `:computer:`.
+
+Also using this from another project:
+
+```
+// https://medium.com/reactnative/emojis-in-javascript-f693d0eb79fb
+    var emoji_value = args[0].codePointAt(0);
+```
     
-    
+## Deploying to Claudia
+
+- Switched my local AWS credentials to my ReallyGoodSmarts account
+- Create function using:
+    ```
+    ./node_modules/.bin/claudia create --region us-east-1 --handler index.handler --role lambda-executor
+    ```
+- Put credentials into the lambda function
+
+- set it to check at :02 and :32 monday through friday ... see [here](https://github.com/claudiajs/claudia/blob/master/docs/add-scheduled-event.md)
+
+```
+./node_modules/.bin/claudia add-scheduled-event --cron "02,32 * * * 1-5"
+```
+
     
     
 TODO
 
-- Switch my local AWS credentials to my ReallyGoodSmarts account
-- Create function using:
-    ```
-    ./node_modules/.bin/claudia create --region us-east-1 --handler index.handler --role lambda_basic_execution
-    ```
+
 - Stored my "Secret Address in iCal Format" as an environment variable by going to the AWS console for that lambda function and adding the variable SECRET_GCAL_ADDRESS.
 
 
