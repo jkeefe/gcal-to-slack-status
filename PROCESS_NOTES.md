@@ -92,6 +92,8 @@ Also using this from another project:
 ./node_modules/.bin/claudia add-scheduled-event --cron "02,32 * ? * MON-FRI *" --event payload.json --name update-slack-status-w-gcal
 ```
 
+- Also made sure the lambda function had enough memory and a few seconds to operate
+
     
     
 TODO

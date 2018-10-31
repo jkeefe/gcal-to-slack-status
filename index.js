@@ -27,6 +27,10 @@ exports.handler = function(event, context, callback){
         // format is callback(error, response);
         callback(null, send_back);
         
+    })
+    .catch((err) => {
+        console.log(err);
+        callback(err);
     });
     
 
@@ -96,8 +100,8 @@ function scanEvents(data) {
         }
         
         // no event now
-        // set blank status, clear DND
-        resolve("no status");
+        // set blank status
+        resolve(null);
         return;
         
     });
@@ -148,12 +152,21 @@ function updateSlack(status_data) {
     
     return new Promise ((resolve,reject) => {
         
+        // bail if there's no event
+        if (!status_data) {
+            resolve("no events");
+            return;
+        }
+        
         slack.users.profile.set({
             token: slack_token,
             profile: JSON.stringify(status_data)
         })
         .then(()=>{
             resolve("done");
+        })
+        .catch((err) => {
+            console.log(err);
         });
         
     });
