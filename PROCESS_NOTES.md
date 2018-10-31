@@ -89,7 +89,7 @@ Also using this from another project:
 - set it to check at :02 and :32 monday through friday ... see [here](https://github.com/claudiajs/claudia/blob/master/docs/add-scheduled-event.md)
 
 ```
-./node_modules/.bin/claudia add-scheduled-event --cron "02,32 * * * 1-5"
+./node_modules/.bin/claudia add-scheduled-event --cron "02,32 * ? * MON-FRI *" --event payload.json --name update-slack-status-w-gcal
 ```
 
     
