@@ -87,9 +87,10 @@ function scanEvents(data) {
                 // note that only other peoples' events have "attendee" objects
                 // (so those without I must have created, and accepted remains 'true')
                 if (event.hasOwnProperty("attendee")){
-                    for (var item in event.attendee) {
-                        if (item.params.CN == "jk@qz.com" && item.params.PARTSTAT != "ACCEPTED") {
+                    for (var i in event.attendee) {
+                        if (event.attendee[i].params.CN == "jk@qz.com" && event.attendee[i].params.PARTSTAT != "ACCEPTED") {
                             accepted = false;
+                            console.log("here");
                         }
                     }
                 }
@@ -141,6 +142,7 @@ function recurringEventIsHappeningNow(event){
     // (aka 'until' is null, so until_time will NOT be valid) 
     // or that recur until sometime in the future
     var until_time = moment(event.rrule.options.until);
+    
     if (!until_time.isValid() || until_time.isAfter(now)) {
         
         // need to update the options a bit from
@@ -162,13 +164,20 @@ function recurringEventIsHappeningNow(event){
         var recurring = new RRule(modified_rule_options);
         
         // get the start time of the last recurrence before now (as a Date instance)
-        var last_recurrance_start = recurring.before(now.toDate());
+        var last_recurrance_start = recurring.before(now.toDate(), {inc:true});
         
         // to get the end time of the last recurrance, we need the duration of the original event
         var original_duration = moment(event.end).diff(moment(event.start));
         
         // now we can calculate the end time of the last recurrance
         var last_recurrance_end = moment(last_recurrance_start).add(original_duration);
+        
+        console.log("TEST14");
+        console.log("last_recurrance_start", last_recurrance_start);
+        console.log("last_recurrance_end", last_recurrance_end);
+        console.log("registering time now", now);
+        console.log("now.isBetween(last_recurrance_start, last_recurrance_end)", now.isBetween(last_recurrance_start, last_recurrance_end));
+        console.log("all recurring", recurring.all());
         
         // finally, return either the new end time or 'false' depending on whether _now_ is between
         // the start time of the last recurrence and the end time of the last recurrence
