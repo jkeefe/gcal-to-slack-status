@@ -95,12 +95,93 @@ Also using this from another project:
 - Also made sure the lambda function had enough memory and a few seconds to operate
 
     
-    
-TODO
+### rrule
 
+SO it turns out that for repeating events, iCal stores the original event (with the original start and end times) and then an object called `rrule` which lays out the recurrence rules for that item. 
 
-- Stored my "Secret Address in iCal Format" as an environment variable by going to the AWS console for that lambda function and adding the variable SECRET_GCAL_ADDRESS.
+This means that in order to see if there is a current _recurring_ event, I'll need to check any event with an `rrule` whose `until` value is either not set or in the future.
 
+Fortunately there's a [npm module](https://github.com/jakubroztocil/rrule) to handle rrules, and I think [this section](https://github.com/jakubroztocil/rrule#rruleprototypebeforedt-incfalse) will be key.
 
+Oh wow. Using this library isn't done in the way I'm used to. But after poking around, the instructions for:
 
+```
+import { RRule, RRuleSet, rrulestr } from 'rrule'
+```
+
+... can be written this way in the world I'm used to:
+
+```javascript
+let {RRule, RRuleSet, rrulestr} = require('rrule')
+```
+
+Then all of the functions in the instructions work like they're supposed to.
+
+```javascript
+const rule = new RRule({
+    freq: RRule.WEEKLY,
+    interval: 5,
+    byweekday: [RRule.MO, RRule.FR],
+    dtstart: new Date(Date.UTC(2012, 1, 1, 10, 30)),
+    until: new Date(Date.UTC(2012, 12, 31))
+});
+```
+
+In this instance, I'm modifying the object that comes from iCal with specifics for RRule ... and adjusting to my needs.
+
+- `freq` needs to be changed from an integer to and RRule thingy
+- `dstart` should be a Date-ized version of the original `dstart`
+- `until` should be now ... because we're telling RRule to repeat until right now. No need to repeat forever, or even until a declared "until" time (as long as we know it's in the future) since we just want to know if there's an instance that's in effect right now -- and don't care about the others.
+- `bynmonthday` and `bynweekday` need to be deleted from the original object for RRule.
+
+```javascript
+var recurring = new RRule({
+    "freq": RRule.WEEKLY,
+    "dtstart": moment.utc("2018-09-19T15:00:00.000Z").toDate(),
+    "interval": 1,
+    "wkst": 0,
+    "count": null,
+    "until": moment.utc().toDate(),
+    "bysetpos": null,
+    "bymonth": null,
+    "bymonthday": [],
+    "byyearday": null,
+    "byweekno": null,
+    "byweekday": [
+        2
+    ],
+    "byhour": [
+        11
+    ],
+    "byminute": [
+        0
+    ],
+    "bysecond": [
+        0
+    ],
+    "byeaster": null
+});
+```
+
+Now we have all of the start times, according to the repetition rules, up to right now:
+
+```bash
+> recurring.all()
+[ 2018-09-19T15:00:00.000Z,
+  2018-09-26T15:00:00.000Z,
+  2018-10-03T15:00:00.000Z,
+  2018-10-10T15:00:00.000Z,
+  2018-10-17T15:00:00.000Z,
+  2018-10-24T15:00:00.000Z,
+  2018-10-31T15:00:00.000Z ]
+```
+
+And actually, we can get "the last recurrence before the given Date instance" using `.before()` ... which, since we're checking at :02 and :32 should give us the last item.
+
+```bash
+> recurring.before(moment.utc().toDate())
+2018-10-31T15:00:00.000Z
+```
+
+Then we can check to see if _now_ is between that datetime and that datetime plus the difference/duration between event.start and event.end, which is the original event.
 

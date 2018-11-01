@@ -1,0 +1,113 @@
+{
+    "type": "VEVENT",
+    "params": [],
+    "start": "2018-09-19T15:00:00.000Z",
+    "end": "2018-09-19T15:25:00.000Z",
+    "rrule": {
+        "_string": null,
+        "_cache": {
+            "all": false,
+            "before": [],
+            "after": [],
+            "between": []
+        },
+        "origOptions": {
+            "freq": 2,
+            "byweekday": [
+                {
+                    "weekday": 2
+                }
+            ],
+            "dtstart": "2018-09-19T15:00:00.000Z"
+        },
+        "options": {
+            "freq": 2,
+            "dtstart": "2018-09-19T15:00:00.000Z",
+            "interval": 1,
+            "wkst": 0,
+            "count": null,
+            "until": null,
+            "bysetpos": null,
+            "bymonth": null,
+            "bymonthday": [],
+            "byyearday": null,
+            "byweekno": null,
+            "byweekday": [
+                2
+            ],
+            "byhour": [
+                11
+            ],
+            "byminute": [
+                0
+            ],
+            "bysecond": [
+                0
+            ],
+            "byeaster": null,
+            "bynmonthday": [],
+            "bynweekday": null
+        },
+        "timeset": [
+            {
+                "hour": 11,
+                "minute": 0,
+                "second": 0
+            }
+        ]
+    },
+    "exdate": {
+        "params": {
+            "TZID": "America/New_York"
+        },
+        "val": "20181024T110000"
+    },
+    "dtstamp": "20181030T124144Z",
+    "organizer": {
+        "params": {
+            "CN": "jk@qz.com"
+        },
+        "val": "mailto:jk@qz.com"
+    },
+    "uid": "41ed0jmbmedboen3fuc1ekmrcb@google.com",
+    "attendee": [
+        {
+            "params": {
+                "CUTYPE": "INDIVIDUAL",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "ACCEPTED",
+                "CN": "jk@qz.com",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:jk@qz.com"
+        },
+        {
+            "params": {
+                "CUTYPE": "RESOURCE",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "ACCEPTED",
+                "CN": "QZNYC Nairobi",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:atlanticmedia.com_35353961666334642d323937372d343363332d396530392d303535376164366536616562@resource.calendar.google.com"
+        },
+        {
+            "params": {
+                "CUTYPE": "INDIVIDUAL",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "ACCEPTED",
+                "CN": "abethoney@qz.com",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:abethoney@qz.com"
+        }
+    ],
+    "created": "20180917T164349Z",
+    "description": "",
+    "last-modified": "20180917T164728Z",
+    "location": "QZNYC Nairobi",
+    "sequence": "0",
+    "status": "CONFIRMED",
+    "summary": "1:1 John & Angelina",
+    "transparency": "OPAQUE"
+}
