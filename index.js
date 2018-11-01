@@ -104,23 +104,23 @@ function scanEvents(data) {
             
             // is the event a RECURRING event? 
             if (event.hasOwnProperty("rrule")) {
-                
-                // only check events that either recur forever 
-                // (aka 'until' is null, so until_time will NOT be valid) 
-                // or that recur until sometime in the future
-                var until_time = moment(event.rrule.options.until);
-                if (!until_time.isValid() || until_time.isAfter(now)) {
                     
-                    if (recurringEventIsHappeningNow(event)) {
-                        
-                        // resolve back to main code
-                        resolve(parseStatus(event));
-                        return;
-                        
-                    }
+                var recurring_event_check = recurringEventIsHappeningNow(event);
+                
+                // will be either false or will contain the event end time
+                
+                if (recurring_event_check) {
+                    
+                    // set the present event end time to the recurring event end time
+                    // so we pass the right expiration time to Slack
+                    event.end = recurring_event_check;
+                    
+                    // resolve back to main code
+                    resolve(parseStatus(event));
+                    return;
                     
                 }
-                
+                    
             }    
             
         }
@@ -137,36 +137,50 @@ function recurringEventIsHappeningNow(event){
     
     var now = moment.utc();
     
-    // need to update the options a bit from
-    // Google Calendar for use in rrule.
-    // See PROCESS_NOTES.md for more info
+    // only check events that either recur forever 
+    // (aka 'until' is null, so until_time will NOT be valid) 
+    // or that recur until sometime in the future
+    var until_time = moment(event.rrule.options.until);
+    if (!until_time.isValid() || until_time.isAfter(now)) {
+        
+        // need to update the options a bit from
+        // Google Calendar for use in rrule.
+        // See PROCESS_NOTES.md for more info
+        
+        // start with the original recurrance rule options in the Google Cal event
+        var modified_rule_options = event.rrule.options;
+        
+        // and change a few things for the rrule package
+        modified_rule_options.freq = freq_array[event.rrule.options.freq];
+        modified_rule_options.dtstart = moment.utc(event.rrule.options.dtstart).toDate();
+        modified_rule_options.until = now.toDate();
+        delete modified_rule_options.bynmonthday;
+        delete modified_rule_options.bynweekday;
+        
+        // generate the recurrances based on the rules
+        // (can view them with recurring.all() )
+        var recurring = new RRule(modified_rule_options);
+        
+        // get the start time of the last recurrence before now (as a Date instance)
+        var last_recurrance_start = recurring.before(now.toDate());
+        
+        // to get the end time of the last recurrance, we need the duration of the original event
+        var original_duration = moment(event.end).diff(moment(event.start));
+        
+        // now we can calculate the end time of the last recurrance
+        var last_recurrance_end = moment(last_recurrance_start).add(original_duration);
+        
+        // finally, return either the new end time or 'false' depending on whether _now_ is between
+        // the start time of the last recurrence and the end time of the last recurrence
+        if (now.isBetween(last_recurrance_start, last_recurrance_end)) {
+            
+            return last_recurrance_end.format();
+            
+        } 
+        
+    }
     
-    // start with the original recurrance rule options in the Google Cal event
-    var modified_rule_options = event.rrule.options;
-    
-    // and change a few things for the rrule package
-    modified_rule_options.freq = freq_array[event.rrule.options.freq];
-    modified_rule_options.dstart = moment.utc(event.rrule.options.dstart).toDate();
-    modified_rule_options.until = now.toDate();
-    delete modified_rule_options.bynmonthday;
-    delete modified_rule_options.bynweekday;
-    
-    // generate the recurrances based on the rules
-    // (can view them with recurring.all() )
-    var recurring = new RRule({modified_rule_options});
-    
-    // get the start time of the last recurrence before now (as a Date instance)
-    var last_recurrance_start = recurring.before(now.toDate());
-    
-    // to get the end time of the last recurrance, we need the duration of the original event
-    var original_duration = moment.duration( moment(event.start).diff(moment(event.end)) );
-    
-    // now we can calculate the end time of the last recurrance
-    var last_recurrance_end = moment(last_recurrance_start).add(original_duration);
-    
-    // finally, return true or false whether _now_ is between
-    // the start time of the last recurrence and the end time of the last recurrence
-    return now.isBetween(last_recurrance_start, last_recurrance_end);
+    return false;
     
 }
 
