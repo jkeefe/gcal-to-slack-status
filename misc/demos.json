@@ -1,0 +1,90 @@
+{
+    "type": "VEVENT",
+    "params": [],
+    "start": "2018-07-20T21:00:00.000Z",
+    "end": "2018-07-20T21:30:00.000Z",
+    "dtstamp": "20181102T210411Z",
+    "organizer": {
+        "params": {
+            "CN": "z@qz.com"
+        },
+        "val": "mailto:z@qz.com"
+    },
+    "uid": "2d7buhugdk69tridkhbb1073if_R20180720T210000@google.com",
+    "attendee": [
+        {
+            "params": {
+                "CUTYPE": "INDIVIDUAL",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "ACCEPTED",
+                "CN": "Zach Seward",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:z@qz.com"
+        },
+        {
+            "params": {
+                "CUTYPE": "INDIVIDUAL",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "ACCEPTED",
+                "CN": "abethoney@qz.com",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:abethoney@qz.com"
+        },
+        {
+            "params": {
+                "CUTYPE": "INDIVIDUAL",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "NEEDS-ACTION",
+                "CN": "Quartz Product Team",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:product@qz.com"
+        },
+        {
+            "params": {
+                "CUTYPE": "INDIVIDUAL",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "ACCEPTED",
+                "CN": "aernst@qz.com",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:aernst@qz.com"
+        },
+        {
+            "params": {
+                "CUTYPE": "INDIVIDUAL",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "ACCEPTED",
+                "CN": "dgolds@qz.com",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:dgolds@qz.com"
+        },
+        {
+            "params": {
+                "CUTYPE": "INDIVIDUAL",
+                "ROLE": "REQ-PARTICIPANT",
+                "PARTSTAT": "ACCEPTED",
+                "CN": "jk@qz.com",
+                "X-NUM-GUESTS": 0
+            },
+            "val": "mailto:jk@qz.com"
+        }
+    ],
+    "recurrence-id": {
+        "params": {
+            "TZID": "America/New_York"
+        },
+        "val": "20180720T170000"
+    },
+    "created": "20170713T125955Z",
+    "description": "Happy Friday! We end each week with demos. It’s casual—a chance to share each other’s work with the broader product team and celebrate milestones—and timed to bleed into cocktail hour in the New York office. Demos can range from design mocks and prototypes to new features and products that are ready to ship, as well as personal side projects or anything else that might be of interest to the rest of the team. The product managers help organize this (and let you know ahead of time!), but the demos will be given by whoever worked on the project. And anyone should certainly feel free to propose a demo for any particular Friday.",
+    "last-modified": "20181029T223343Z",
+    "location": "Workshop | https://qz.bluejeans.com/595959595",
+    "sequence": "1",
+    "status": "CONFIRMED",
+    "summary": "Demos",
+    "transparency": "OPAQUE"
+}
