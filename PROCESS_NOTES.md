@@ -1,7 +1,6 @@
 # Process Notes
 
-Here's where I keep rough notes on how I make this.
-
+Here's where I keep rough notes on how I made this. I write these to keep track of what I did for the future, not as a clear guide for others. But feel free to wander through with me, and drop me a note if you'd like more info.
 
 ## The plan
 
