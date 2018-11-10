@@ -6,11 +6,11 @@
     "dtstamp": "20181030T214109Z",
     "organizer": {
         "params": {
-            "CN": "ljackson@qz.com"
+            "CN": "XXX@qz.com"
         },
         "val": "mailto:ljackson@qz.com"
     },
-    "uid": "48b3nkggbpauguqqt156dska9k@google.com",
+    "uid": "XXX@google.com",
     "attendee": {
         "params": {
             "CUTYPE": "INDIVIDUAL",

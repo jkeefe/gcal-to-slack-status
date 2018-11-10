@@ -139,11 +139,12 @@ function recurringEventIsHappeningNow(event){
     var now = moment.utc();
     
     // only check events that either recur forever 
-    // (aka 'until' is null, so until_time will NOT be valid) 
-    // or that recur until sometime in the future
+    // (aka 'until' is null, and until_time is not valid) 
+    // or are set to recur until at least the start of this half hour,
+    // which, when this runs, will be about 2-3 minutes ago. Using 5 to be safe.
     var until_time = moment(event.rrule.options.until);
     
-    if (!until_time.isValid() || until_time.isAfter(now)) {
+    if (!until_time.isValid() || until_time.isSameOrAfter(now.subtract(5,'minutes'))) {
         
         // need to update the options a bit from
         // Google Calendar for use in rrule.
@@ -155,9 +156,11 @@ function recurringEventIsHappeningNow(event){
         // and change a few things for the rrule package
         modified_rule_options.freq = freq_array[event.rrule.options.freq];
         modified_rule_options.dtstart = moment.utc(event.rrule.options.dtstart).toDate();
-        modified_rule_options.until = now.toDate();
         delete modified_rule_options.bynmonthday;
         delete modified_rule_options.bynweekday;
+        
+        // only generate events through the end of today
+        modified_rule_options.until = now.endOf('day').toDate();
         
         // generate the recurrances based on the rules
         // (can view them with recurring.all() )

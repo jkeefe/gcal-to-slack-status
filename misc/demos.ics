@@ -1,0 +1,37 @@
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20180720T170000
+DTEND;TZID=America/New_York:20180720T173000
+RRULE:FREQ=WEEKLY;BYDAY=FR
+EXDATE;TZID=America/New_York:20180914T170000
+EXDATE;TZID=America/New_York:20180831T170000
+EXDATE;TZID=America/New_York:20180817T170000
+DTSTAMP:20181109T133428Z
+ORGANIZER;CN=z@qz.com:mailto:z@qz.com
+UID:2d7buhugdk69tridkhbb1073if_R20180720T210000@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=aernst
+ @qz.com;X-NUM-GUESTS=0:mailto:aernst@qz.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=jk@qz.
+ com;X-NUM-GUESTS=0:mailto:jk@qz.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;CN=Qu
+ artz Product Team;X-NUM-GUESTS=0:mailto:product@qz.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=dgolds
+ @qz.com;X-NUM-GUESTS=0:mailto:dgolds@qz.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Zach S
+ eward;X-NUM-GUESTS=0:mailto:z@qz.com
+CREATED:20170713T125955Z
+DESCRIPTION:Happy Friday! We end each week with demos. It’s casual—a chance
+  to share each other’s work with the broader product team and celebrate mil
+ estones—and timed to bleed into cocktail hour in the New York office. Demos
+  can range from design mocks and prototypes to new features and products th
+ at are ready to ship\, as well as personal side projects or anything else t
+ hat might be of interest to the rest of the team. The product managers help
+  organize this (and let you know ahead of time!)\, but the demos will be gi
+ ven by whoever worked on the project. And anyone should certainly feel free
+  to propose a demo for any particular Friday.
+LAST-MODIFIED:20181029T223343Z
+LOCATION:Workshop | https://qz.bluejeans.com/XXXX
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Demos
+TRANSP:OPAQUE
+END:VEVENT
