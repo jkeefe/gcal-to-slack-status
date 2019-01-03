@@ -43,6 +43,8 @@ function getCalendar(url) {
     
     return new Promise((resolve,reject) => {
         
+        console.log("Fetching iCal file ...");
+        
         ical.fromURL(url, {}, function(err, data) {
             
             if (err) {
@@ -50,6 +52,8 @@ function getCalendar(url) {
                 return;
             }
             
+            //// Careful, this can be pretty big:
+            // console.log("Full data file:", JSON.stringify(data));
             resolve(data);
             return;
             
@@ -66,40 +70,71 @@ function scanEvents(data) {
         
         var now = moment();
         
+        console.log("Scanning events ...");
+        
         // loop through the events
         for (var k in data) {
             
             var event=data[k];
             
             console.log("---");
-            console.log(JSON.stringify(event));
+            console.log(`Event: ${event.summary} ${JSON.stringify(event)}`);
+            
+            // Check to see if I've accepted the event ...
+            // if there's no "attendee" property, then I made the event for myself
+            // if there's just one attendee, it is likely me. This seem to be because 
+            ///  the organizer has hidden the others or the list is too long for Google to share
+            // if I make a multiple-attendee event, I am automatically flagged as accepted
+            if (event.hasOwnProperty("attendee")){
+                var seems_legit = false;
+                
+                // if there's only one attendee, "attendee" is an object (so no "length")
+                // Otherwise it's an array. So it goes.
+                if (!event.attendee.length) {
+                    
+                    if (event.attendee.params.CN == "jk@qz.com" && event.attendee.params.PARTSTAT == "ACCEPTED") {
+                        seems_legit = true;
+                    }
+                    
+                } else {
+                
+                    // loop through the attendees
+                    for (var i in event.attendee) {
+                        if (event.attendee[i].params.CN == "jk@qz.com" && event.attendee[i].params.PARTSTAT == "ACCEPTED") {
+                            seems_legit = true;
+                        }
+                    }
+                }
+                
+                if (!seems_legit) {
+                    console.log("Skipping! You haven't accepted this event.");
+                    continue;
+                }        
+            }
+            
+            // skip if pingboard has added it to my calendar
+            if (event.hasOwnProperty("organizer")) {
+                if ( event.organizer.params.CN.match(/pingboard/u)) {
+                    console.log ("Skipping! Pingboard made this event.");
+                    continue;
+                }   
+            }
+            
             
             // is this a single or inital event happening now?
             var start = moment(event.start);
             var end = moment(event.end);
             
+            // check for a single event, where we're now between its  
+            // start and end times
             if (now.isBetween(start,end)) {
                 
                 // yes, event is happening now
-                // check to see if I made event or accepted it
-                var accepted = true;
-                
-                // note that only other peoples' events have "attendee" objects
-                // (so those without I must have created, and accepted remains 'true')
-                if (event.hasOwnProperty("attendee")){
-                    for (var i in event.attendee) {
-                        if (event.attendee[i].params.CN == "jk@qz.com" && event.attendee[i].params.PARTSTAT != "ACCEPTED") {
-                            accepted = false;
-                            console.log("here");
-                        }
-                    }
-                }
                 
                 // resolve back to main code on the first event happening now that I've accepted 
-                if (accepted) {
-                    resolve(parseStatus(event));
-                    return;
-                }
+                console.log("Accepting! This single event is happening now.");
+                resolve(parseStatus(event));
+                return;
                 
             }
             
@@ -117,16 +152,20 @@ function scanEvents(data) {
                     event.end = recurring_event_check;
                     
                     // resolve back to main code
+                    console.log("Accepting! This recurring event is happening now.");
                     resolve(parseStatus(event));
                     return;
                     
                 }
                     
-            }    
+            }   
+            
+            console.log("This event doesn't seem to be happening now."); 
             
         }
         
         // no event now
+        console.log("None of the events are happening now.");
         resolve(null);
         return;
         
@@ -175,10 +214,9 @@ function recurringEventIsHappeningNow(event){
         // now we can calculate the end time of the last recurrance
         var last_recurrance_end = moment(last_recurrance_start).add(original_duration);
         
-        console.log("TEST14");
         console.log("last_recurrance_start", last_recurrance_start);
-        console.log("last_recurrance_end", last_recurrance_end);
-        console.log("registering time now", now);
+        console.log("last_recurrance_end", last_recurrance_end.format("llll"));
+        console.log("registering time now", now.format("llll"));
         console.log("now.isBetween(last_recurrance_start, last_recurrance_end)", now.isBetween(last_recurrance_start, last_recurrance_end));
         console.log("all recurring", recurring.all());
         
