@@ -120,6 +120,14 @@ function scanEvents(data) {
                 }   
             }
             
+            // skip if the event is "transparent" ... which means "free" not "busy"
+            if (event.hasOwnProperty("transparency")) {
+                if (event.transparency == "TRANSPARENT") {
+                    console.log("Skipping! Event is transparent, indicating free time.");
+                    continue;
+                }
+            }
+            
             
             // is this a single or inital event happening now?
             var start = moment(event.start);
